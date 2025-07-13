@@ -22,14 +22,14 @@ const TABLES: ReadonlyArray<string> = [
 type TableName = (typeof TABLES)[number];
 
 export default class BaseRepository {
-    private static handleError(err: unknown): never {
+    private static _handleError(err: unknown): never {
         if (err instanceof Error) {
             throw err;
         }
         throw new Error(String(err));
     }
 
-    private static tableIdMap: Entities = {
+    private static _tableIdMap: Entities = {
         customers: 'customer_id',
         products: 'product_id',
         purchases: 'purchase_id',
@@ -41,7 +41,7 @@ export default class BaseRepository {
         columnsArray: string[]
     ): Promise<T[]> {
         try {
-            if (!BaseRepository.tableIdMap[table])
+            if (!BaseRepository._tableIdMap[table])
                 throw new Error(`Invalid or unmapped table: ${table}`);
 
             const columns: string = columnsArray.join(', ');
@@ -55,7 +55,7 @@ export default class BaseRepository {
 
             return results.rows;
         } catch (err: unknown) {
-            BaseRepository.handleError(err);
+            BaseRepository._handleError(err);
         }
     }
 
@@ -66,7 +66,7 @@ export default class BaseRepository {
     ): Promise<T> {
         try {
             const columns: string = columnsArray.join(', ');
-            const columnId: string = BaseRepository.tableIdMap[table];
+            const columnId: string = BaseRepository._tableIdMap[table];
 
             if (!columnId) throw new Error(`Table ${table} not mapped`);
             const query: QueryConfig = {
@@ -82,7 +82,7 @@ export default class BaseRepository {
 
             return result;
         } catch (err: unknown) {
-            BaseRepository.handleError(err);
+            BaseRepository._handleError(err);
         }
     }
 
@@ -108,7 +108,7 @@ export default class BaseRepository {
             return result;
         } catch (err: unknown) {
             await client.query('ROLLBACK;');
-            BaseRepository.handleError(err);
+            BaseRepository._handleError(err);
         } finally {
             client.release(); // ENCERRA CONEXÃO
         }
@@ -125,7 +125,7 @@ export default class BaseRepository {
             const setClause = columnsArray.map(
                 (col: string, index: number) => `${col} = $${index + 1}`
             );
-            const columnId: string = BaseRepository.tableIdMap[table];
+            const columnId: string = BaseRepository._tableIdMap[table];
 
             if (!columnId) throw new Error(`Table ${table} not mapped`);
 
@@ -142,7 +142,7 @@ export default class BaseRepository {
             return result;
         } catch (err: unknown) {
             await client.query(`ROLLBACK`);
-            BaseRepository.handleError(err);
+            BaseRepository._handleError(err);
         } finally {
             client.release();
         }
@@ -154,7 +154,7 @@ export default class BaseRepository {
     ): Promise<T> {
         const client: PoolClient = await pool.connect();
         try {
-            const columnId: string = BaseRepository.tableIdMap[table];
+            const columnId: string = BaseRepository._tableIdMap[table];
             if (!columnId) throw new Error(`Table ${table} not mapped`);
             await client.query('BEGIN;');
             const query: QueryConfig = {
@@ -167,7 +167,7 @@ export default class BaseRepository {
             return result;
         } catch (err: unknown) {
             await client.query('ROLLBACK;');
-            BaseRepository.handleError(err);
+            BaseRepository._handleError(err);
         }
     }
 }
