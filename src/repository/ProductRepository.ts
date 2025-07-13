@@ -1,8 +1,20 @@
 import BaseRepository from '@repository/BaseRepository';
 
+interface Product {
+    product_id: string;
+    name: string;
+    description: string;
+    price_cents: number;
+    size: string;
+    gender: string;
+    category: string;
+}
+
 export default class ProductRepository extends BaseRepository {
-    public async getAll(): Promise<any> {
-        return await super.getAll('products', [
+    private productEntity: string = 'products';
+
+    public override async getAll<T = Product>(): Promise<T[]> {
+        return await super.getAll(this.productEntity, [
             'product_id',
             'name',
             'description',
@@ -13,9 +25,9 @@ export default class ProductRepository extends BaseRepository {
         ]);
     }
 
-    public async getById(id: string): Promise<any> {
+    public override async getById<T = Product>(id: string): Promise<T> {
         return await super.getById(
-            'products',
+            this.productEntity,
             [
                 'product_id',
                 'name',
@@ -28,4 +40,44 @@ export default class ProductRepository extends BaseRepository {
             id
         );
     }
+
+    public async createProduct<V, T = Product>(valuesArray: V[]): Promise<T> {
+        return await super.create(
+            this.productEntity,
+            [
+                'name',
+                'description',
+                'price_cents',
+                'size',
+                'gender',
+                'category',
+            ],
+            valuesArray
+        );
+    }
+
+    public async updateProduct<V, T = Product>(
+        valuesArray: V[],
+        id: string
+    ): Promise<T> {
+        return await super.update(
+            this.productEntity,
+            [
+                'name',
+                'description',
+                'price_cents',
+                'size',
+                'gender',
+                'category',
+            ],
+            valuesArray,
+            id
+        );
+    }
+
+    public async deleteProduct<T = Product>(id: string): Promise<T> {
+        return await super.delete(this.productEntity, id);
+    }
 }
+
+
