@@ -102,8 +102,7 @@ export default abstract class BaseRepository {
                 values: valuesArray,
             };
             await client.query('BEGIN;');
-            const { password_hash, ...result } = (await client.query(query))
-                .rows[0];
+            const result = (await client.query(query)).rows[0];
             await client.query('COMMIT;');
             return result;
         } catch (err: unknown) {
@@ -126,18 +125,15 @@ export default abstract class BaseRepository {
                 (col: string, index: number) => `${col} = $${index + 1}`
             );
             const columnId: string = BaseRepository._tableIdMap[table];
-
             if (!columnId) throw new Error(`Table ${table} not mapped`);
-
             const query: QueryConfig = {
                 text: `UPDATE ${table} SET ${setClause.join(
                     ', '
-                )} WHERE ${columnId} = ${setClause.length + 1} RETURNING *;`,
+                )} WHERE ${columnId} = $${setClause.length + 1} RETURNING *;`,
                 values: [...valuesArray, id],
             };
             await client.query('BEGIN;');
-            const { password_hash, ...result } = (await client.query(query))
-                .rows[0];
+            const result = (await client.query(query)).rows[0];
             await client.query('COMMIT;');
             return result;
         } catch (err: unknown) {
@@ -161,8 +157,7 @@ export default abstract class BaseRepository {
                 text: `DELETE FROM ${table} WHERE ${columnId} = $1 RETURNING *;`,
                 values: [id],
             };
-            const { password_hash, ...result } = (await client.query(query))
-                .rows[0];
+            const result = (await client.query(query)).rows[0];
             await client.query('COMMIT;');
             return result;
         } catch (err: unknown) {

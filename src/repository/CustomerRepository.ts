@@ -5,7 +5,9 @@ interface Customer {
     first_name: string;
     last_name: string;
     email: string;
+    password_hash: string;
 }
+
 export default class CustomerRepository extends BaseRepository {
     private customerEntity: string = 'customers';
 
@@ -15,13 +17,20 @@ export default class CustomerRepository extends BaseRepository {
             'first_name',
             'last_name',
             'email',
+            'password_hash',
         ]);
     }
 
     public override async getById<T = Customer>(id: string): Promise<T> {
         return await super.getById(
             this.customerEntity,
-            ['customer_id', 'first_name', 'last_name', 'email'],
+            [
+                'customer_id',
+                'first_name',
+                'last_name',
+                'email',
+                'password_hash',
+            ],
             id
         );
     }

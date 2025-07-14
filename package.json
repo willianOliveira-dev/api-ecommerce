@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/willianOliveira-dev/api-ecommerce#readme",
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/dotenv": "^6.1.1",
         "@types/express": "^5.0.3",
         "@types/joi": "^17.2.2",
@@ -27,6 +28,7 @@
         "typescript": "^5.8.3"
     },
     "dependencies": {
+        "bcrypt": "^6.0.0",
         "dotenv": "^17.1.0",
         "express": "^5.1.0",
         "joi": "^17.13.3",
