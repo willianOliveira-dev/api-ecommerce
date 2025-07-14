@@ -21,7 +21,7 @@ const TABLES: ReadonlyArray<string> = [
 
 type TableName = (typeof TABLES)[number];
 
-export default class BaseRepository {
+export default abstract class BaseRepository {
     private static _handleError(err: unknown): never {
         if (err instanceof Error) {
             throw err;
