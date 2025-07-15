@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import validationHelper from '@validations/validationHelper';
 
 const product: Joi.Schema = Joi.object({
     name: Joi.string().min(3).required().messages({
@@ -14,6 +13,13 @@ const product: Joi.Schema = Joi.object({
         'number.base': 'Price must be a number.',
         'any.required': 'The price is mandatory.',
     }),
+    size: Joi.string()
+        .valid('PP', 'P', 'M', 'G', 'GG', 'XG', 'XGG', 'EG')
+        .required()
+        .messages({
+            'any.only': 'Size must be PP, P, M, G, GG, XG, XGG or EG.',
+            'any.required': 'Size is required.',
+        }),
     gender: Joi.string().valid('M', 'F').required().messages({
         'any.only': 'Gender must be M or F.',
         'any.required': 'Gender is required.',
@@ -23,4 +29,4 @@ const product: Joi.Schema = Joi.object({
     }),
 });
 
-export default validationHelper(product);
+export default product;

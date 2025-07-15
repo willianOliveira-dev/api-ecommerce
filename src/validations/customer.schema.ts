@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import validationHelper from '@validations/validationHelper';
 
 const customer: Joi.ObjectSchema = Joi.object({
     first_name: Joi.string().min(3).max(100).required().messages({
@@ -23,6 +22,7 @@ const customer: Joi.ObjectSchema = Joi.object({
         .pattern(
             new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,}$')
         )
+        .required()
         .messages({
             'string.pattern.base':
                 'The password must contain at least 8 characters, including uppercase letters, lowercase letters, numbers and special characters.',
@@ -30,4 +30,4 @@ const customer: Joi.ObjectSchema = Joi.object({
         }),
 });
 
-export default validationHelper(customer);
+export default customer;

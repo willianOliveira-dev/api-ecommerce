@@ -12,7 +12,8 @@
             "@controller/*": ["controller/*"],
             "@service/*": ["service/*"],
             "@validations/*": ["validations/*"],
-            "@utils/*": ["utils/*"]
+            "@utils/*": ["utils/*"],
+            "@middlewares/*": ["middlewares/*"]
         },
         "moduleResolution": "nodenext",
         "esModuleInterop": true,

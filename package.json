@@ -18,9 +18,13 @@
     "homepage": "https://github.com/willianOliveira-dev/api-ecommerce#readme",
     "devDependencies": {
         "@types/bcrypt": "^5.0.2",
+        "@types/cookie-parser": "^1.4.9",
+        "@types/cors": "^2.8.19",
         "@types/dotenv": "^6.1.1",
         "@types/express": "^5.0.3",
+        "@types/helmet": "^4.0.0",
         "@types/joi": "^17.2.2",
+        "@types/morgan": "^1.9.10",
         "@types/node": "^24.0.11",
         "@types/pg": "^8.15.4",
         "ts-node-dev": "^2.0.0",
@@ -29,9 +33,13 @@
     },
     "dependencies": {
         "bcrypt": "^6.0.0",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
         "dotenv": "^17.1.0",
         "express": "^5.1.0",
+        "helmet": "^8.1.0",
         "joi": "^17.13.3",
+        "morgan": "^1.10.0",
         "pg": "^8.16.3"
     }
 }
