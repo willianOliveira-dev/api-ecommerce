@@ -3,7 +3,7 @@ import ProductService from '@service/product.service';
 import priceConvertion from '@utils/priceConvertion';
 
 const productService = new ProductService();
-export default class {
+export default class ProductController{
     public async getAllProduct(req: Request, res: Response): Promise<void> {
         const results = (await productService.getAllProduct()).map(
             (product) => {

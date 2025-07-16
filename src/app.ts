@@ -1,14 +1,13 @@
 import 'dotenv/config';
-import express, { Express } from 'express';
-import customersRouter from '@routes/customer.route';
-import productsRouter from '@routes/product.route';
-import { errorHandler } from '@middlewares/index';
+import express, { type Express } from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import errorHandler from '@middlewares/errorHandler';
+import { customersRouter, loginRouter, productsRouter} from '@routes/index.route';
 
 const app: Express = express();
 const PORT: number = 8080;
@@ -29,6 +28,7 @@ app.use(helmet());
 app.use(cookieParser());
 app.use('/customers', customersRouter);
 app.use('/products', productsRouter);
+app.use('/login', loginRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

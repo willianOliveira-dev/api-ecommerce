@@ -1,5 +1,5 @@
 import { ValidationError } from 'joi';
-import { Request, Response, NextFunction } from 'express';
+import { type Request, type Response, type NextFunction } from 'express';
 type CustomerError = ValidationError | Error;
 
 export default function errorHandler(

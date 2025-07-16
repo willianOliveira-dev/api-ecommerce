@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 const customer = new CustomerRepository();
 
-export default class {
+export default class CustomerService{
     async getAllCustomer() {
         return await customer.getAll();
     }

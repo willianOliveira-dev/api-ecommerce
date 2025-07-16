@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const customer: Joi.ObjectSchema = Joi.object({
+const customerSchema: Joi.ObjectSchema = Joi.object({
     first_name: Joi.string().min(3).max(100).required().messages({
         'string.min': 'The name must have at least 3 characters',
         'string.max': 'The name must have a maximum of 100 characters',
@@ -30,4 +30,4 @@ const customer: Joi.ObjectSchema = Joi.object({
         }),
 });
 
-export default customer;
+export default customerSchema;

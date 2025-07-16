@@ -5,7 +5,7 @@ import updateData from '@utils/udpateData';
 
 const product = new ProductRepository();
 
-export default class {
+export default class ProductService {
     public async getAllProduct() {
         return await product.getAll();
     }

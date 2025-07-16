@@ -3,7 +3,7 @@ import CustomerService from '@service/customer.service';
 
 const customerService = new CustomerService();
 
-export default class {
+export default class CustomerController{
     public async getAllCustomer(req: Request, res: Response): Promise<void> {
         const result = (await customerService.getAllCustomer()).map(
             ({ password_hash, ...rest }) => rest

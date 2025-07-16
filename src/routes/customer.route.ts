@@ -1,12 +1,12 @@
-import express, { Router } from 'express';
+import express, { type Router } from 'express';
 import CustomerController from '@controller/customer.controller';
 import customerSchema from '@validations/customer.schema';
-import { validation as validateCustomer } from '@middlewares/index';
+import validateCustomer from '@middlewares/validation.middleware';
 
 const router: Router = express.Router();
 const customerController = new CustomerController();
 
-validateCustomer(customerSchema)
+validateCustomer(customerSchema);
 router
     .route('/')
     .get(customerController.getAllCustomer)
@@ -16,5 +16,5 @@ router
     .get(customerController.getByIdCustomer)
     .put(validateCustomer(customerSchema), customerController.updateCustomer)
     .delete(customerController.deleteCustomer);
-    
+
 export default router;

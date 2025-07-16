@@ -1,7 +1,7 @@
-import express, { Router } from 'express';
+import express, { type Router } from 'express';
 import ProductController from '@controller/product.controller';
 import productSchema from '@validations/product.schema';
-import { validation as validateProduct } from '@middlewares/index';
+import validateProduct from '@middlewares/validation.middleware';
 
 const router: Router = express.Router();
 const productController = new ProductController();
