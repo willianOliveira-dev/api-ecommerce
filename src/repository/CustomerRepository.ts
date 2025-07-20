@@ -8,6 +8,9 @@ export interface Customer {
 }
 
 export default class CustomerRepository extends BaseRepository {
+    constructor() {
+        super();
+    }
     private customerEntity: string = 'customers';
 
     public override async getAll<T = Customer>(): Promise<T[]> {

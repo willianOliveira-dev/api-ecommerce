@@ -1,5 +1,5 @@
 import { pool } from '@config/connect';
-import { PoolClient, QueryConfig } from 'pg';
+import { type PoolClient, type QueryConfig } from 'pg';
 
 interface ResultQuery {
     [columns: string]: any;
@@ -22,7 +22,7 @@ const TABLES: ReadonlyArray<string> = [
 type TableName = (typeof TABLES)[number];
 
 export default abstract class BaseRepository {
-    private static _handleError(err: unknown): never {
+    protected static _handleError(err: unknown): never {
         if (err instanceof Error) {
             throw err;
         }
@@ -50,8 +50,7 @@ export default abstract class BaseRepository {
             };
             const results = await pool.query(query);
 
-            if (results.rowCount === 0)
-                throw new Error(`No records found in table ${table}`);
+            if (results.rowCount === 0) return [];
 
             return results.rows;
         } catch (err: unknown) {

@@ -10,6 +10,9 @@ router
     .route('/')
     .get(productController.getAllProduct)
     .post(validateProduct(productSchema), productController.createProduct);
+
+router.route('/search').get(productController.searchByNameProduct);
+
 router
     .route('/:id')
     .get(productController.getByIdProduct)

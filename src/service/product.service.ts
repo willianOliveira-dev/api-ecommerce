@@ -14,6 +14,10 @@ export default class ProductService {
         return await product.getById(id);
     }
 
+    public async searchByNameProduct(name?: string, category?: string) {
+        return await product.searchByName(name, category);
+    }
+
     public async createProduct(body: any) {
         body.price_cents = priceConvertion(
             body.price_cents as number,
@@ -22,6 +26,7 @@ export default class ProductService {
         return await product.createProduct(
             orderValuesArray(body, [
                 'name',
+                'quantity',
                 'description',
                 'price_cents',
                 'size',
@@ -37,6 +42,7 @@ export default class ProductService {
         return await product.updateProduct(
             orderValuesArray(updatedProduct, [
                 'name',
+                'quantity',
                 'description',
                 'price_cents',
                 'size',

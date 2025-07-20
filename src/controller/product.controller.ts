@@ -3,7 +3,7 @@ import ProductService from '@service/product.service';
 import priceConvertion from '@utils/priceConvertion';
 
 const productService = new ProductService();
-export default class ProductController{
+export default class ProductController {
     public async getAllProduct(req: Request, res: Response): Promise<void> {
         const results = (await productService.getAllProduct()).map(
             (product) => {
@@ -16,6 +16,7 @@ export default class ProductController{
         );
         res.status(200).send(results);
     }
+
     public async getByIdProduct(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const result = await productService.getByIdProduct(id);
@@ -24,6 +25,25 @@ export default class ProductController{
             'toReais'
         ) as number;
         res.status(200).send(result);
+    }
+
+    public async searchByNameProduct(
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        const { name, category } = req.query;
+        const results = await productService.searchByNameProduct(
+            name as string,
+            category as string
+        );
+        console.log(results);
+        results.map((product) => {
+            product.price_cents = priceConvertion(
+                product.price_cents,
+                'toReais'
+            ) as number;
+        });
+        res.status(200).send(results);
     }
 
     public async createProduct(req: Request, res: Response): Promise<void> {
