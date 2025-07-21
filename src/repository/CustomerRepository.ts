@@ -8,13 +8,14 @@ export interface Customer {
 }
 
 export default class CustomerRepository extends BaseRepository {
+    private _customerEntity: string = 'customers';
+
     constructor() {
         super();
     }
-    private customerEntity: string = 'customers';
 
     public override async getAll<T = Customer>(): Promise<T[]> {
-        return await super.getAll(this.customerEntity, [
+        return await super.getAll(this._customerEntity, [
             'customer_id',
             'first_name',
             'last_name',
@@ -25,7 +26,7 @@ export default class CustomerRepository extends BaseRepository {
 
     public override async getById<T = Customer>(id: string): Promise<T> {
         return await super.getById(
-            this.customerEntity,
+            this._customerEntity,
             [
                 'customer_id',
                 'first_name',
@@ -39,7 +40,7 @@ export default class CustomerRepository extends BaseRepository {
 
     public async createCustomer<V, T = Customer>(valuesArray: V[]): Promise<T> {
         return await super.create(
-            this.customerEntity,
+            this._customerEntity,
             ['first_name', 'last_name', 'email', 'password_hash'],
             valuesArray
         );
@@ -50,7 +51,7 @@ export default class CustomerRepository extends BaseRepository {
         id: string
     ): Promise<T> {
         return await super.update(
-            this.customerEntity,
+            this._customerEntity,
             ['first_name', 'last_name', 'email', 'password_hash'],
             valuesArray,
             id
@@ -58,6 +59,6 @@ export default class CustomerRepository extends BaseRepository {
     }
 
     public async deleteCustomer<T = Customer>(id: string): Promise<T> {
-        return await super.delete(this.customerEntity, id);
+        return await super.delete(this._customerEntity, id);
     }
 }

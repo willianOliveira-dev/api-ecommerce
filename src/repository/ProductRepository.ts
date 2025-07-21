@@ -14,11 +14,12 @@ interface Product {
 }
 
 export default class ProductRepository extends BaseRepository {
+    private _productEntity: string = 'products';
+
     constructor() {
         super();
     }
-    private _productEntity: string = 'products';
-
+    
     public override async getAll<T = Product>(): Promise<T[]> {
         return await super.getAll(this._productEntity, [
             'product_id',
@@ -76,7 +77,7 @@ export default class ProductRepository extends BaseRepository {
             values: values,
         };
 
-        console.log(query)
+        console.log(query);
 
         try {
             const results = await pool.query(query);

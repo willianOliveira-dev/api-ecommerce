@@ -23,9 +23,11 @@ CREATE TABLE IF NOT EXISTS public.purchases (
 	customer_id uuid NOT NULL,
 	purchase_date date NOT NULL,
 	delivery_address TEXT NOT NULL,
+	status TEXT DEFAULT 'confirmed',
 	CONSTRAINT fk_customer 
 		FOREIGN KEY (customer_id) 
-			REFERENCES public.customers (customer_id) ON DELETE CASCADE
+			REFERENCES public.customers (customer_id) ON DELETE CASCADE,
+	CONSTRAINT check_status CHECK (status IN ('confirmed', 'cancelled'))
 );
 
 CREATE TABLE IF NOT EXISTS public.purchaseproduct (
@@ -33,6 +35,7 @@ CREATE TABLE IF NOT EXISTS public.purchaseproduct (
 	purchase_id uuid NOT NULL,
 	product_id uuid NOT NULL,
     product_amount INTEGER NOT NULL,
+	price_cents_at_purchase INTEGER NOT NULL,
 	CONSTRAINT fk_purchase 
 		FOREIGN KEY (purchase_id)
 			REFERENCES public.purchases(purchase_id) ON DELETE CASCADE,

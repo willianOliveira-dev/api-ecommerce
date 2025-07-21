@@ -36,7 +36,6 @@ export default class ProductController {
             name as string,
             category as string
         );
-        console.log(results);
         results.map((product) => {
             product.price_cents = priceConvertion(
                 product.price_cents,
