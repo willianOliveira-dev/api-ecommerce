@@ -15,7 +15,7 @@ import {
 const app: Express = express();
 const PORT: number = 8080;
 
-const startServer = async () => {
+const startServer: () => Promise<void> = async () => {
     app.use(express.json());
     app.use(cors());
     app.use(morgan('dev'));
