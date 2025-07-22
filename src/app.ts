@@ -1,28 +1,25 @@
 import 'dotenv/config';
 import express, { type Express } from 'express';
-import fs from 'node:fs';
-import path from 'node:path';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import errorHandler from '@middlewares/errorHandler';
-import { customersRouter, loginRouter, productsRouter} from '@routes/index.route';
+import createLogs from '@utils/createLogs';
+import {
+    customersRouter,
+    loginRouter,
+    productsRouter,
+} from '@routes/index.route';
 
 const app: Express = express();
 const PORT: number = 8080;
 
-const logFolder = path.join(__dirname, 'logs');
-if (!fs.existsSync(logFolder)) {
-    fs.mkdirSync(logFolder);
-}
-const logFile = fs.createWriteStream(path.join(logFolder, 'access.log'), {
-    flags: 'a',
-});
-
 app.use(express.json());
 app.use(cors());
-app.use(morgan('combined', { stream: logFile }));
+createLogs().then((stream) => {
+    if (stream) app.use(morgan('combined', { stream }));
+});
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cookieParser());
