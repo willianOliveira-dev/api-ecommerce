@@ -1,3 +1,5 @@
+CREATE DATABASE ecommercer_db;
+
 CREATE TABLE IF NOT EXISTS public.customers (
 	customer_id uuid DEFAULT gen_random_uuid () PRIMARY KEY,
 	first_name TEXT NOT NULL,
