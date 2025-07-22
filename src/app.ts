@@ -15,19 +15,22 @@ import {
 const app: Express = express();
 const PORT: number = 8080;
 
-app.use(express.json());
-app.use(cors());
-createLogs().then((stream) => {
-    if (stream) app.use(morgan('combined', { stream }));
-});
-app.use(morgan('dev'));
-app.use(helmet());
-app.use(cookieParser());
-app.use('/customers', customersRouter);
-app.use('/products', productsRouter);
-app.use('/login', loginRouter);
-app.use(errorHandler);
+const startServer = async () => {
+    app.use(express.json());
+    app.use(cors());
+    app.use(morgan('dev'));
+    const stream = await createLogs();
+    app.use(morgan('combined', { stream }));
+    app.use(helmet());
+    app.use(cookieParser());
+    app.use('/customers', customersRouter);
+    app.use('/products', productsRouter);
+    app.use('/login', loginRouter);
+    app.use(errorHandler);
 
-app.listen(PORT, () => {
-    console.info(`Server running on http://localhost:${PORT}`);
-});
+    app.listen(PORT, () => {
+        console.info(`Server running on http://localhost:${PORT}`);
+    });
+};
+
+startServer(); 

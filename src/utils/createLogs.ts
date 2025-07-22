@@ -8,7 +8,7 @@ const createLogs = async (): Promise<WriteStream | undefined> => {
         try {
             await fs.access(logFolder, fs.constants.F_OK | fs.constants.W_OK);
         } catch (err: unknown) {
-            fs.mkdir(logFolder, { recursive: true });
+            await fs.mkdir(logFolder, { recursive: true });
         }
         const logFile: WriteStream = createWriteStream(
             path.join(logFolder, 'access.log'),
@@ -21,6 +21,5 @@ const createLogs = async (): Promise<WriteStream | undefined> => {
         }
     }
 };
-
 
 export default createLogs;
