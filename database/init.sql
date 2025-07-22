@@ -1,4 +1,4 @@
-CREATE DATABASE ecommercer_db;
+CREATE DATABASE nome_do_banco;
 
 CREATE TABLE IF NOT EXISTS public.customers (
 	customer_id uuid DEFAULT gen_random_uuid () PRIMARY KEY,
