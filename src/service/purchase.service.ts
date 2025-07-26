@@ -49,13 +49,13 @@ export default class PurchaseService {
             const { purchase_id } = createProduct;
 
             for (let product of products) {
-                const { product_id, product_amount, price_cents_at_purchase } =
+                const { product_id, product_amount, price_cents } =
                     product;
                 await purchaseProductRepo.createPurchaseProduct([
                     purchase_id,
                     product_id,
                     product_amount,
-                    priceConvertion(price_cents_at_purchase, 'toCents'),
+                    priceConvertion(price_cents, 'toCents'),
                 ]);
 
                 await productRepo.updateQuantity(product_id, product_amount);

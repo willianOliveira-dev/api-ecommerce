@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS public.products (
 CREATE TABLE IF NOT EXISTS public.purchases (
 	purchase_id uuid DEFAULT gen_random_uuid () PRIMARY KEY,
 	customer_id uuid NOT NULL,
-	purchase_date date NOT NULL,
+	purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	delivery_address TEXT NOT NULL,
 	status TEXT DEFAULT 'confirmed',
 	CONSTRAINT fk_customer 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS public.purchaseproduct (
 	purchase_id uuid NOT NULL,
 	product_id uuid NOT NULL,
     product_amount INTEGER NOT NULL,
-	price_cents_at_purchase INTEGER NOT NULL,
+	price_cents INTEGER NOT NULL,
 	CONSTRAINT fk_purchase 
 		FOREIGN KEY (purchase_id)
 			REFERENCES public.purchases(purchase_id) ON DELETE CASCADE,

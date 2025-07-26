@@ -6,10 +6,11 @@ const purchaseSchema: Joi.ObjectSchema = Joi.object({
         'date.format': 'Purchase date must be in ISO format (YYYY-MM-DD).',
         'any.required': 'Purchase date is required.',
     }),
+    
     products: Joi.array().items(
         Joi.object({
             product_id: Joi.string().uuid().required().messages({
-                'string.base': 'Product ID must be a string.',
+                'string.base': 'Product ID must be a text.',
                 'string.guid': 'Product ID must be a valid UUID.',
                 'any.required': 'Product ID is required.',
             }),
@@ -19,7 +20,7 @@ const purchaseSchema: Joi.ObjectSchema = Joi.object({
                 'number.min': 'Minimum quantity is 1.',
                 'any.required': 'Quantity is required.',
             }),
-            price_cents_at_purchase: Joi.number().min(0).required().messages({
+            price_cents: Joi.number().min(0).required().messages({
                 'number.min': 'The price cannot be negative.',
                 'number.base': 'Price must be a number.',
                 'any.required': 'The price is mandatory.',

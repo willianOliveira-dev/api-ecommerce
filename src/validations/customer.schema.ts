@@ -2,13 +2,15 @@ import Joi from 'joi';
 
 const customerSchema: Joi.ObjectSchema = Joi.object({
     first_name: Joi.string().min(3).max(100).required().messages({
+        'string.base': 'Name must be a text.',
         'string.min': 'The name must have at least 3 characters',
         'string.max': 'The name must have a maximum of 100 characters',
         'any.required': 'Name is required.',
     }),
     last_name: Joi.string().min(3).max(100).required().messages({
-        'string.min': 'The name must have at least 3 characters',
-        'string.max': 'The name must have a maximum of 100 characters',
+        'string.base': 'Surname must be a text.',
+        'string.min': 'Surname name must have at least 3 characters',
+        'string.max': 'The Surname must have a maximum of 100 characters',
         'any.required': 'Surname is required.',
     }),
     email: Joi.string()

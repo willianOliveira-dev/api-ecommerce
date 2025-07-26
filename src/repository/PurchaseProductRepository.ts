@@ -21,7 +21,7 @@ export default class PurchaseProductRepository extends BaseRepository {
             'purchase_id',
             'product_id',
             'product_amount',
-            'price_cents_at_purchase',
+            'price_cents',
         ]);
     }
 
@@ -33,7 +33,7 @@ export default class PurchaseProductRepository extends BaseRepository {
                 'purchase_id',
                 'product_id',
                 'product_amount',
-                'price_cents_at_purchase',
+                'price_cents',
             ],
             id
         );
@@ -48,7 +48,7 @@ export default class PurchaseProductRepository extends BaseRepository {
                 'purchase_id',
                 'product_id',
                 'product_amount',
-                'price_cents_at_purchase',
+                'price_cents',
             ],
             valuesArray
         );

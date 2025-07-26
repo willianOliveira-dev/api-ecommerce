@@ -2,6 +2,7 @@ import Joi from 'joi';
 
 const productSchema: Joi.Schema = Joi.object({
     name: Joi.string().min(3).required().messages({
+        'string.base': 'Product name must be a text',
         'string.min': 'The name must be at least 3 characters long.',
         'any.required': 'Name is required.',
     }),
@@ -10,7 +11,9 @@ const productSchema: Joi.Schema = Joi.object({
         'number.base': 'Quantity must be a number',
         'any.required': 'Quantity is required',
     }),
-    description: Joi.string().default(null),
+    description: Joi.string().default(null).messages({
+        'string.base': 'Description must be a text',
+    }),
     price_cents: Joi.number().min(0).required().messages({
         'number.min': 'The price cannot be negative.',
         'number.base': 'Price must be a number.',
