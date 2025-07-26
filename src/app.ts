@@ -10,6 +10,7 @@ import {
     customersRouter,
     loginRouter,
     productsRouter,
+    purchasesRouter,
 } from '@routes/index.route';
 
 const app: Express = express();
@@ -26,6 +27,7 @@ const startServer: () => Promise<void> = async () => {
     app.use('/customers', customersRouter);
     app.use('/products', productsRouter);
     app.use('/login', loginRouter);
+    app.use('/purchase', purchasesRouter);
     app.use(errorHandler);
 
     app.listen(PORT, () => {
@@ -33,4 +35,4 @@ const startServer: () => Promise<void> = async () => {
     });
 };
 
-startServer(); 
+startServer();

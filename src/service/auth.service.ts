@@ -17,7 +17,7 @@ export default class AuthService {
         );
         if (!passwordValid) throw new Error('Invalid password');
         const token = jwt.sign(
-            { userId: customer.customer_id },
+            { id: customer.customer_id },
             process.env.JWT_SECRET as string,
             { expiresIn: '24h' }
         );

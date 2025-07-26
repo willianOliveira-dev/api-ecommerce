@@ -19,7 +19,7 @@ export default class ProductRepository extends BaseRepository {
     constructor() {
         super();
     }
-    
+
     public override async getAll<T = Product>(): Promise<T[]> {
         return await super.getAll(this._productEntity, [
             'product_id',
@@ -121,6 +121,17 @@ export default class ProductRepository extends BaseRepository {
             valuesArray,
             id
         );
+    }
+
+    public async updateQuantity(
+        product_id: string,
+        amountSold: number
+    ): Promise<void> {
+        const query: QueryConfig = {
+            text: `UPDATE ${this._productEntity} SET quantity = quantity - $1 WHERE product_id = $2 `,
+            values: [amountSold, product_id],
+        };
+        await pool.query(query);
     }
 
     public async deleteProduct<T = Product>(id: string): Promise<T> {

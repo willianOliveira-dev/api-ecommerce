@@ -22,13 +22,20 @@ export default class PurchaseRepository extends BaseRepository {
             'customer_id',
             'purchase_date',
             'delivery_address',
+            'status',
         ]);
     }
 
     public override async getById<T = Purchase>(id: string): Promise<T> {
         return await super.getById(
             this._purchaseEntity,
-            ['purchase_id', 'customer_id', 'purchase_date', 'delivery_address'],
+            [
+                'purchase_id',
+                'customer_id',
+                'purchase_date',
+                'delivery_address',
+                'status',
+            ],
             id
         );
     }
@@ -36,7 +43,7 @@ export default class PurchaseRepository extends BaseRepository {
     public async createPurchase<V, T = Purchase>(valuesArray: V[]): Promise<T> {
         return await super.create(
             this._purchaseEntity,
-            ['purchase_id', 'customer_id', 'purchase_date', 'delivery_address'],
+            ['customer_id', 'purchase_date', 'delivery_address', 'status'],
             valuesArray
         );
     }
