@@ -162,6 +162,8 @@ export default abstract class BaseRepository {
         } catch (err: unknown) {
             await client.query('ROLLBACK;');
             BaseRepository._handleError(err);
+        } finally {
+            client.release();
         }
     }
 }

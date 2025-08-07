@@ -16,7 +16,7 @@ router
         purchaseController.createPurchase
     );
 
-router.route('/:id').get(purchaseController.getByIdPurchase);
+router.route('/:id').get(authMiddleware, purchaseController.getByIdPurchase);
 
 router
     .route('/cancel/:id')

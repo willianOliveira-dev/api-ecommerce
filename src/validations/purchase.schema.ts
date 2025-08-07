@@ -4,7 +4,6 @@ const purchaseSchema: Joi.ObjectSchema = Joi.object({
     purchase_date: Joi.date().iso().messages({
         'date.base': 'Purchase date must be a valid date.',
         'date.format': 'Purchase date must be in ISO format (YYYY-MM-DD).',
-        'any.required': 'Purchase date is required.',
     }),
     
     products: Joi.array().items(
@@ -46,7 +45,6 @@ const purchaseSchema: Joi.ObjectSchema = Joi.object({
         .messages({
             'string.base': 'Status must be a text.',
             'any.only': 'Status must be either "confirmed" or "cancelled".',
-            'any.required': 'Status is required.',
         }),
 });
 

@@ -1,6 +1,6 @@
+import BaseRepository from '@repository/BaseRepository';
 import { pool } from '@config/connect';
 import { type QueryConfig } from 'pg';
-import BaseRepository from '@repository/BaseRepository';
 
 interface Product {
     product_id: string;
