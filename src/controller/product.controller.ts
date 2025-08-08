@@ -31,8 +31,21 @@ export default class ProductController {
         req: Request,
         res: Response
     ): Promise<void> {
+        const allowedParams: string[] = ['name', 'category'];
+        const queryKeys: string[] = Object.keys(req.query);
+
+        const invalidParams = queryKeys.filter(
+            (key) => !allowedParams.includes(key)
+        );
+
+        if (invalidParams.length > 0) {
+            throw new Error(
+                `Invalid query parameter(s): ${invalidParams.join(', ')}`
+            );
+        }
+
         const { name, category } = req.query;
-        const results = await productService.searchByNameProduct(
+        const results = await productService.searchByNameOrCategoryProduct(
             name as string,
             category as string
         );

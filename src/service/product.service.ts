@@ -14,8 +14,11 @@ export default class ProductService {
         return await product.getById(id);
     }
 
-    public async searchByNameProduct(name?: string, category?: string) {
-        return await product.searchByName(name, category);
+    public async searchByNameOrCategoryProduct(
+        name?: string,
+        category?: string
+    ) {
+        return await product.searchByNameOrCategory(name, category);
     }
 
     public async createProduct(body: any) {

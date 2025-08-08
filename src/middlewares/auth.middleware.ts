@@ -10,7 +10,7 @@ const authMiddleware = (
     if (!token) {
         res.status(401).json({
             message: 'Access Denied',
-            details: 'Token required',
+            details: ['Token required'],
         });
         return;
     }
@@ -22,7 +22,7 @@ const authMiddleware = (
     } catch (err: any) {
         res.status(401).json({
             message: 'Access Denied',
-            details: 'Invalid token',
+            details: ['Invalid token'],
         });
     }
 };

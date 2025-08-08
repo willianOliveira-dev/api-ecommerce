@@ -2,6 +2,8 @@ import PurchaseRepository from '@repository/PurchaseRepository';
 import PurchaseProductRepository from '@repository/PurchaseProductRepository';
 import ProductRepository from '@repository/ProductRepository';
 import priceConvertion from '@utils/priceConvertion';
+import NotFoundError from '@utils/errors/NotFoundError';
+import ForbiddenError from '@utils/errors/ForbiddenError';
 
 const purchase = new PurchaseRepository();
 
@@ -15,18 +17,13 @@ export default class PurchaseService {
         const purchaseData = await purchase.getById(id);
 
         if (!purchaseData) {
-            return {
-                message: 'Purchase not found.',
-                status: 404,
-            };
+            throw new NotFoundError('Purchase not found.');
         }
 
         if (purchaseData.customer_id !== customer_id) {
-            return {
-                message: 'Unauthorized access to this purchase.',
-                status: 403,
-            };
+            throw new ForbiddenError('Unauthorized access to this purchase.');
         }
+
         return purchaseData;
     }
 
@@ -76,13 +73,20 @@ export default class PurchaseService {
             }
             return createProduct;
         }
-        return {
-            message: 'Requested quantity unavailable.',
-            details: 'Exceeds current stock limit.',
-        };
+        throw new ForbiddenError('Exceeds current stock limit.');
     }
 
-    public async cancelPurchase(id: string) {
+    public async cancelPurchase(id: string, customer_id: string) {
+        const purchaseData = await purchase.getById(id);
+
+        if (!purchaseData) {
+            throw new NotFoundError('Purchase not found.');
+        }
+
+        if (purchaseData.customer_id !== customer_id) {
+            throw new ForbiddenError('Unauthorized access to delete this purchase.');
+        }
+
         return await purchase.cancelPurchase(id);
     }
 

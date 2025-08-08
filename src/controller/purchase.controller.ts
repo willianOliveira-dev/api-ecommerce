@@ -5,7 +5,6 @@ import { JwtPayload } from 'jsonwebtoken';
 const purchaseService = new PurchaseService();
 
 export default class PurchaseController {
-    
     public async getAllPurchase(req: Request, res: Response): Promise<void> {
         const { user } = req;
         const result = await purchaseService.getAllPurchaseByCustomer(
@@ -37,7 +36,11 @@ export default class PurchaseController {
 
     public async cancelPurchase(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        const result = await purchaseService.cancelPurchase(id);
+        const { user } = req;
+        const result = await purchaseService.cancelPurchase(
+            id,
+            (user as JwtPayload).id
+        );
         res.status(200).send(result);
     }
 

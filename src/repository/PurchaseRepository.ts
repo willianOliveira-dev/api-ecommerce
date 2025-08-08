@@ -1,6 +1,7 @@
 import { pool } from '@config/connect';
 import { QueryConfig, type PoolClient } from 'pg';
 import BaseRepository from './BaseRepository';
+import ConflictError from '@utils/errors/ConflictError';
 
 interface Purchase {
     purchase_id: string;
@@ -62,7 +63,7 @@ export default class PurchaseRepository extends BaseRepository {
             const purchaseResults = await client.query(purchaseQuery);
 
             if (purchaseResults.rows[0].status === 'cancelled') {
-                PurchaseRepository._handleError('Purchase already canceled.');
+                throw new ConflictError('Purchase already canceled.');
             }
 
             const productQuery: QueryConfig = {

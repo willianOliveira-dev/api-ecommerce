@@ -1,4 +1,5 @@
 import { pool } from '@config/connect';
+import NotFoundError from '@utils/errors/NotFoundError';
 import { type PoolClient, type QueryConfig } from 'pg';
 
 interface ResultQuery {
@@ -75,7 +76,7 @@ export default abstract class BaseRepository {
             const result = (await pool.query(query)).rows[0];
 
             if (!result)
-                throw new Error(
+                throw new NotFoundError(
                     `Record with ID ${id} not found in table ${table}`
                 );
 
@@ -157,6 +158,12 @@ export default abstract class BaseRepository {
                 values: [id],
             };
             const result = (await client.query(query)).rows[0];
+
+            if (!result)
+                throw new NotFoundError(
+                    `Record with ID ${id} not found in table ${table}`
+                );
+                
             await client.query('COMMIT;');
             return result;
         } catch (err: unknown) {

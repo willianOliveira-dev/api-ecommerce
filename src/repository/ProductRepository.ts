@@ -1,6 +1,8 @@
 import BaseRepository from '@repository/BaseRepository';
 import { pool } from '@config/connect';
 import { type QueryConfig } from 'pg';
+import { error } from 'node:console';
+import NotFoundError from '@utils/errors/NotFoundError';
 
 interface Product {
     product_id: string;
@@ -50,7 +52,7 @@ export default class ProductRepository extends BaseRepository {
         );
     }
 
-    public async searchByName<T = Product>(
+    public async searchByNameOrCategory<T = Product>(
         name?: string,
         category?: string
     ): Promise<T[]> {
@@ -77,10 +79,14 @@ export default class ProductRepository extends BaseRepository {
             values: values,
         };
 
-        console.log(query);
-
         try {
             const results = await pool.query(query);
+            if (results.rowCount === 0) {
+                throw new NotFoundError(
+                    'The search result by name or category was not found.'
+                );
+            }
+            
             return results.rows;
         } catch (err: unknown) {
             ProductRepository._handleError(err);
