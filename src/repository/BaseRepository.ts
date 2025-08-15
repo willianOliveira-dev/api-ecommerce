@@ -134,6 +134,12 @@ export default abstract class BaseRepository {
             };
             await client.query('BEGIN;');
             const result = (await client.query(query)).rows[0];
+            
+            if (!result)
+                throw new NotFoundError(
+                    `Record with ID ${id} not found in table ${table}`
+                );
+            
             await client.query('COMMIT;');
             return result;
         } catch (err: unknown) {
