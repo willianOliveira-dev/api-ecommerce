@@ -1,4 +1,4 @@
-import ProductRepository from '@repository/ProductRepository';
+import ProductRepository from 'repositories/ProductRepository';
 import priceConvertion from '@utils/priceConvertion';
 import orderValuesArray from '@utils/orderValuesArray';
 import updateData from '@utils/udpateData';

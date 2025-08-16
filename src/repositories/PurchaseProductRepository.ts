@@ -1,4 +1,4 @@
-import BaseRepository from '@repository/BaseRepository';
+import BaseRepository from 'repositories/BaseRepository';
 
 interface PurchaseProduct {
     purchaseproduct_id: string;
@@ -44,12 +44,7 @@ export default class PurchaseProductRepository extends BaseRepository {
     ): Promise<T> {
         return await super.create(
             this._purchaseproduct,
-            [
-                'purchase_id',
-                'product_id',
-                'product_amount',
-                'price_cents',
-            ],
+            ['purchase_id', 'product_id', 'product_amount', 'price_cents'],
             valuesArray
         );
     }

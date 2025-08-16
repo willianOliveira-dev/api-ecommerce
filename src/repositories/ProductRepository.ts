@@ -1,4 +1,4 @@
-import BaseRepository from '@repository/BaseRepository';
+import BaseRepository from 'repositories/BaseRepository';
 import { pool } from '@config/connect';
 import { type QueryConfig } from 'pg';
 import { error } from 'node:console';
@@ -86,7 +86,7 @@ export default class ProductRepository extends BaseRepository {
                     'The search result by name or category was not found.'
                 );
             }
-            
+
             return results.rows;
         } catch (err: unknown) {
             ProductRepository._handleError(err);

@@ -1,6 +1,6 @@
 import CustomerController, {
     type Customer,
-} from '@repository/CustomerRepository';
+} from 'repositories/CustomerRepository';
 
 type AuthCustomer = Customer;
 

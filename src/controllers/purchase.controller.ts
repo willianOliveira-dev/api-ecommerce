@@ -1,4 +1,4 @@
-import PurchaseService from '@service/purchase.service';
+import PurchaseService from 'services/purchase.service';
 import { type Request, type Response } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 

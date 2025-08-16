@@ -1,11 +1,11 @@
-import CustomerRepository from '@repository/CustomerRepository';
+import CustomerRepository from 'repositories/CustomerRepository';
 import orderValuesArray from '@utils/orderValuesArray';
 import updateData from '@utils/udpateData';
 import bcrypt from 'bcrypt';
 
 const customer = new CustomerRepository();
 
-export default class CustomerService{
+export default class CustomerService {
     async getAllCustomer() {
         return await customer.getAll();
     }

@@ -1,4 +1,4 @@
-import BaseRepository from '@repository/BaseRepository';
+import BaseRepository from 'repositories/BaseRepository';
 export interface Customer {
     customer_id: string;
     first_name: string;

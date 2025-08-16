@@ -1,5 +1,5 @@
 import express, { type Router } from 'express';
-import PurchaseController from '@controller/purchase.controller';
+import PurchaseController from 'controllers/purchase.controller';
 import purchaseSchema from '@validations/purchase.schema';
 import validateCustomer from '@middlewares/validation.middleware';
 import authMiddleware from '@middlewares/auth.middleware';
@@ -104,7 +104,7 @@ router
         validateCustomer(purchaseSchema),
         purchaseController.createPurchase
     );
-    
+
 // GET - /api/purchases/{id}
 /**
  * @swagger

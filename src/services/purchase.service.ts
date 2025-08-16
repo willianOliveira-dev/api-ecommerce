@@ -1,6 +1,6 @@
-import PurchaseRepository from '@repository/PurchaseRepository';
-import PurchaseProductRepository from '@repository/PurchaseProductRepository';
-import ProductRepository from '@repository/ProductRepository';
+import PurchaseRepository from 'repositories/PurchaseRepository';
+import PurchaseProductRepository from 'repositories/PurchaseProductRepository';
+import ProductRepository from 'repositories/ProductRepository';
 import priceConvertion from '@utils/priceConvertion';
 import NotFoundError from '@utils/errors/NotFoundError';
 import ForbiddenError from '@utils/errors/ForbiddenError';
@@ -8,7 +8,6 @@ import ForbiddenError from '@utils/errors/ForbiddenError';
 const purchase = new PurchaseRepository();
 
 export default class PurchaseService {
-    
     public async getAllPurchaseByCustomer(customer_id: string) {
         return await purchase.getAllPurchaseByCustomer(customer_id);
     }
@@ -84,7 +83,9 @@ export default class PurchaseService {
         }
 
         if (purchaseData.customer_id !== customer_id) {
-            throw new ForbiddenError('Unauthorized access to delete this purchase.');
+            throw new ForbiddenError(
+                'Unauthorized access to delete this purchase.'
+            );
         }
 
         return await purchase.cancelPurchase(id);

@@ -1,5 +1,5 @@
 import express, { type Router } from 'express';
-import ProductController from '@controller/product.controller';
+import ProductController from 'controllers/product.controller';
 import productSchema from '@validations/product.schema';
 import validateProduct from '@middlewares/validation.middleware';
 

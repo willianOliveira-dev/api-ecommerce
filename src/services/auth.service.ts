@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bycrypt from 'bcrypt';
-import AuthRepository from '@repository/AuthRepository';
+import AuthRepository from 'repositories/AuthRepository';
 import NotFoundError from '@utils/errors/NotFoundError';
 
 export default class AuthService {
@@ -10,7 +10,8 @@ export default class AuthService {
     ): Promise<string> {
         const auth: AuthRepository = new AuthRepository();
         const customer =
-            (await auth.findByEmail(email)) ?? new NotFoundError('User not found!');
+            (await auth.findByEmail(email)) ??
+            new NotFoundError('User not found!');
         if (customer instanceof Error) throw customer;
         const passwordValid = await bycrypt.compare(
             password_hash,

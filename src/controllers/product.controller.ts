@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ProductService from '@service/product.service';
+import ProductService from 'services/product.service';
 import priceConvertion from '@utils/priceConvertion';
 
 const productService = new ProductService();

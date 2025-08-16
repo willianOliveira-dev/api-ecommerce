@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import CustomerService from '@service/customer.service';
+import CustomerService from 'services/customer.service';
 
 const customerService = new CustomerService();
 
-export default class CustomerController{
+export default class CustomerController {
     public async getAllCustomer(req: Request, res: Response): Promise<void> {
         const result = (await customerService.getAllCustomer()).map(
             ({ password_hash, ...rest }) => rest

@@ -1,5 +1,5 @@
 import express, { type Router } from 'express';
-import CustomerController from '@controller/customer.controller';
+import CustomerController from 'controllers/customer.controller';
 import customerSchema from '@validations/customer.schema';
 import validateCustomer from '@middlewares/validation.middleware';
 
