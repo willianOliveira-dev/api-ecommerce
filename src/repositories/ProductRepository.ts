@@ -1,7 +1,6 @@
 import BaseRepository from 'repositories/BaseRepository';
 import { pool } from '@config/connect';
 import { type QueryConfig } from 'pg';
-import { error } from 'node:console';
 import NotFoundError from '@utils/errors/NotFoundError';
 
 interface Product {

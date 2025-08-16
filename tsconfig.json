@@ -7,10 +7,10 @@
         "baseUrl": "./src",
         "paths": {
             "@routes/*": ["routes/*"],
-            "@repository/*": ["repository/*"],
+            "@repositories/*": ["repositories/*"],
             "@config/*": ["config/*"],
-            "@controller/*": ["controller/*"],
-            "@service/*": ["service/*"],
+            "@controllers/*": ["controllers/*"],
+            "@services/*": ["services/*"],
             "@validations/*": ["validations/*"],
             "@utils/*": ["utils/*"],
             "@middlewares/*": ["middlewares/*"]
